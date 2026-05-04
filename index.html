@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMILE SCANNER v1.0 - Protocolo Especial</title>
+    <style>
+        body { background: #050a0f; color: #00f2ff; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; text-align: center; margin: 0; padding: 20px; }
+        #scanner-box { border: 2px solid #00f2ff; margin: 30px auto; max-width: 500px; padding: 30px; border-radius: 20px; box-shadow: 0 0 30px rgba(0, 242, 255, 0.2); background: rgba(0, 0, 0, 0.6); }
+        h1 { font-size: 1.5rem; letter-spacing: 3px; margin-bottom: 20px; }
+        #status { font-style: italic; color: #a0faff; margin-bottom: 20px; height: 20px; }
+        .progress-container { border: 1px solid #00f2ff; width: 100%; height: 15px; border-radius: 10px; overflow: hidden; margin-bottom: 25px; }
+        .bar { width: 0%; height: 100%; background: linear-gradient(90deg, #00f2ff, #0077ff); transition: width 0.1s; }
+        button { background: transparent; border: 1px solid #00f2ff; color: #00f2ff; padding: 12px 30px; font-size: 1rem; border-radius: 50px; cursor: pointer; transition: 0.3s; }
+        button:hover { background: #00f2ff; color: #050a0f; box-shadow: 0 0 15px #00f2ff; }
+        #result { display: none; animation: fadeIn 2s; }
+        .emoji-big { font-size: 60px; margin: 20px 0; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .data-row { display: flex; justify-content: space-between; border-bottom: 1px solid rgba(0, 242, 255, 0.1); padding: 10px 0; font-size: 0.9rem; }
+        .label { color: #888; }
+        .value { font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <div id="scanner-box">
+        <h1>SMILE SCANNER <small>v1.0</small></h1>
+        
+        <div id="initial-view">
+            <p>Se ha detectado un sujeto con nivel crítico de belleza.</p>
+            <p><strong>Dra. Odontóloga</strong></p>
+            <button onclick="startScan()" id="scan-btn">INICIAR ESCANEO BIOMÉTRICO</button>
+        </div>
+
+        <div id="scanning-view" style="display:none;">
+            <p id="status">Iniciando sensores...</p>
+            <div class="progress-container">
+                <div id="progress-bar" class="bar"></div>
+            </div>
+        </div>
+
+        <div id="result">
+            <div class="emoji-big">🦷✨</div>
+            <h2>DIAGNÓSTICO: PERFECTO</h2>
+            
+            <div class="data-row"><span class="label">Paciente:</span> <span class="value">La más hermosa</span></div>
+            <div class="data-row"><span class="label">Estructura Dental:</span> <span class="value">Perfección 10/10</span></div>
+            <div class="data-row"><span class="label">Nivel de Inteligencia:</span> <span class="value">Superior (Genio)</span></div>
+            <div class="data-row"><span class="label">Aprobación de Benjamín:</span> <span class="value">100% (Miau!)</span></div>
+            
+            <div class="emoji-big">🐈🍔</div>
+            <p style="color: white; font-size: 1.2rem;">¡Feliz Cumpleaños! Que hoy sobren las hamburguesas y las sonrisas, no estes triste, te amamos.</p>
+        </div>
+    </div>
+
+    <script>
+        function startScan() {
+            document.getElementById('initial-view').style.display = 'none';
+            document.getElementById('scanning-view').style.display = 'block';
+            
+            let bar = document.getElementById('progress-bar');
+            let status = document.getElementById('status');
+            let width = 0;
+            let messages = [
+                "Escaneando esmalte dental...",
+                "Midiendo simetría de sonrisa...",
+                "Verificando nivel de inteligencia...(Genio detectado)",
+                "Consultando opinión de Benjamín...(Y rastro de bolas de pelo)",
+                "Buscando hamburguesas cercanas...",
+                "Finalizando diagnóstico..."
+              " Tu mama estaría muy orgullosa de ti"
+            ];
+            
+            let interval = setInterval(() => {
+                if (width >= 100) {
+                    clearInterval(interval);
+                    document.getElementById('scanning-view').style.display = 'none';
+                    document.getElementById('result').style.display = 'block';
+                } else {
+                    width += 1;
+                    bar.style.width = width + '%';
+                    status.innerText = messages[Math.floor(width/17)] || "Casi listo...";
+                }
+            }, 50);
+        }
+    </script>
+</body>
+</html>
